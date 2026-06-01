@@ -17,7 +17,7 @@ toolVillaServer.use(express.json())
 toolVillaServer.use(express.urlencoded({ extended: true }))
 toolVillaServer.use(userRoute)
 toolVillaServer.use(productRoute)
-toolVillaServer.use('/uploads',express.static('/uploads'))
+toolVillaServer.use('/uploads',express.static('./uploads'))
 
 
 const PORT = process.env.PORT || 3000
@@ -26,5 +26,5 @@ toolVillaServer.get('/',(req,res)=>{
     res.send("ToolVilla server started....")
 })
 toolVillaServer.listen(PORT,()=>{
-    console.log("TV Server running on the port ",+PORT)
+    console.log("TV Server running on the port ",PORT)
 })

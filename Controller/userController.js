@@ -30,7 +30,7 @@ exports.loginUser=async(req,res)=>{
         const existingUser = await users.findOne({email})
         if(existingUser){
            if(existingUser.password===password){
-            const token = jwt.sign({userMail:existingUser.email,userId:existingUser._id},process.env.jwtKey)
+            const token = jwt.sign({email:existingUser.email,userId:existingUser._id},process.env.jwtKey)
                 console.log(token);
                 res.status(200).json({message:"Login Successfull..",existingUser,token})
            }
