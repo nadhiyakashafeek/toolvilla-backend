@@ -31,13 +31,13 @@ exports.addProduct = async (req, res) => {
   
   
 
-  const { itemname, description, sku, brand, category, price, stock, dimensions, weight } = req.body;
+  const { itemname, description, sku, brand, category, price, stock, dimensions, weight,fromDate, toDate } = req.body;
   const email=  req.payload
   if (!email) {
   return res.status(401).json({ message: "Unauthorized! Token is missing or invalid." });
 }
   const images = req.files ? req.files.map(file => file.path) : [];
-  console.log(itemname, description, sku, brand, category, price, stock, dimensions, weight ,email,images)
+  console.log(itemname, description, sku, brand, category, price, stock, dimensions, weight ,email,images,fromDate, toDate)
 
   try{
     const existingProduct = await HardwareTool.findOne({sku,email})
@@ -46,7 +46,7 @@ exports.addProduct = async (req, res) => {
         res.status(401).json({message:"Product already existing..."})
     } else{
         const newProduct = new HardwareTool({
-            itemname, description, sku, brand, category, price, stock, dimensions, weight,email,images
+            itemname, description, sku, brand, category, price, stock, dimensions, weight,email,images,fromDate, toDate
         })
         console.log(newProduct);
         await newProduct.save()

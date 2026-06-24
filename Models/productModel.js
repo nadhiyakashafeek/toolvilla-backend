@@ -1,5 +1,6 @@
 // productModel.js
 const mongoose = require("mongoose");
+const { array } = require("../middlewares/multerMiddleware");
 
 const hardwareToolSchema = new mongoose.Schema({
   itemname: { type: String, required: true},
@@ -10,11 +11,13 @@ const hardwareToolSchema = new mongoose.Schema({
   price: { type: Number, required: true },
   email: { type: String, required: true },
   stock: { type: Number, default: 0 },
-  images: { type: [String], default: [] },
+  images: { type: Array, required: true },
   dimensions: { type: String, default: "" },
   weight: { type: String, default: "" },
+  fromDate: { type: Date, required: true },
+  toDate: { type: Date, required: true }
 });
 
 // Create a compound index on sku and email to ensure uniqueness of products per user
-hardwareToolSchema.index({ sku: 1, email: 1 }, { unique: true });
+// hardwareToolSchema.index({ sku: 1, email: 1 }, { unique: true });
 module.exports = mongoose.model("HardwareTool", hardwareToolSchema);
